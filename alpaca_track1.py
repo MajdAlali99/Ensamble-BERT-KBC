@@ -5,7 +5,7 @@ import logging
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 from tqdm.auto import tqdm
-from transformers import AutoTokenizer, AutoModelForMaskedLM, pipeline
+from transformers import AutoTokenizer, AutoModelForMaskedLM, AutoModelForCausalLM, pipeline
 
 from file_io import read_lm_kbc_jsonl
 
@@ -28,93 +28,37 @@ class PromptSet(Dataset):
         return self.prompts[index]
 
 
-# def create_prompt(subject_entity: str, relation: str, mask_token: str) -> str:
-#     """
-#     Depending on the relation, we fix the prompt
-#     """
-
-#     prompt = mask_token
-
-#     if relation == "CountryBordersWithCountry":
-#         prompt = f"{subject_entity} shares border with {mask_token}."
-#     elif relation == "CountryOfficialLanguage":
-#         prompt = f"The official language of {subject_entity} is {mask_token}."
-#     elif relation == "StateSharesBorderState":
-#         prompt = f"{subject_entity} shares border with {mask_token} state."
-#     elif relation == "RiverBasinsCountry":
-#         prompt = f"{subject_entity} river basins in {mask_token}."
-#     elif relation == "ChemicalCompoundElement":
-#         prompt = f"{subject_entity} consists of {mask_token}, " \
-#                  f"which is an element."
-#     elif relation == "PersonLanguage":
-#         prompt = f"{subject_entity} speaks in {mask_token}."
-#     elif relation == "PersonProfession":
-#         prompt = f"{subject_entity} is a {mask_token} by profession."
-#     elif relation == "PersonInstrument":
-#         prompt = f"{subject_entity} plays {mask_token}, which is an instrument."
-#     elif relation == "PersonEmployer":
-#         prompt = f"{subject_entity} is an employer at {mask_token}, " \
-#                  f"which is a company."
-#     elif relation == "PersonPlaceOfDeath":
-#         prompt = f"{subject_entity} died at {mask_token}."
-#     elif relation == "PersonCauseOfDeath":
-#         prompt = f"{subject_entity} died due to {mask_token}."
-#     elif relation == "CompanyParentOrganization":
-#         prompt = f"The parent organization of {subject_entity} is {mask_token}."
-
-#     return prompt
-
-def create_prompt(subject_entity: str, relation: str, mask_token: str) -> str:
+def create_prompt(subject_entity: str, relation: str) -> str:
     """
     Depending on the relation, we fix the prompt
     """
 
-    prompt = mask_token
-
     if relation == "CountryBordersWithCountry":
-        prompt = f"{subject_entity} shares border with {mask_token}."
-
+        prompt = f"Which countries does {subject_entity} share a border with?"
     elif relation == "CountryOfficialLanguage":
-        prompt = f"{mask_token} is the native language of {subject_entity}."
-
+        prompt = f"What is the official language of {subject_entity}?"
     elif relation == "StateSharesBorderState":
-        prompt = f"{subject_entity} and {mask_token} are bordering states."
-
+        prompt = f"Which states does {subject_entity} share a border with?"
     elif relation == "RiverBasinsCountry":
-        prompt = f"{subject_entity} river basins in {mask_token}."
-
+        prompt = f"In which countries are the river basins of {subject_entity}?"
     elif relation == "ChemicalCompoundElement":
-        prompt = f"{subject_entity} contains atoms of {mask_token}."
-
+        prompt = f"What elements does {subject_entity} consist of?"
     elif relation == "PersonLanguage":
-        prompt = f"{subject_entity} speaks in {mask_token}."
-
+        prompt = f"What language does {subject_entity} speak?"
     elif relation == "PersonProfession":
-        prompt = f"{subject_entity} works as an {mask_token}."
-
+        prompt = f"What is the profession of {subject_entity}?"
     elif relation == "PersonInstrument":
-        prompt = f"{subject_entity} plays {mask_token}, which is an instrument."
-
+        prompt = f"What instrument does {subject_entity} play?"
     elif relation == "PersonEmployer":
-        prompt = f"{subject_entity} is an employee at {mask_token}."
-
+        prompt = f"Where does {subject_entity} work?"
     elif relation == "PersonPlaceOfDeath":
-        prompt = f"{subject_entity} death place {mask_token}."
-
+        prompt = f"Where did {subject_entity} die?"
     elif relation == "PersonCauseOfDeath":
-        prompt = f"{mask_token} led to the death of {subject_entity}."
-        
+        prompt = f"What was the cause of death of {subject_entity}?"
     elif relation == "CompanyParentOrganization":
-        prompt = f"{mask_token} is parent organization of {subject_entity}."
+        prompt = f"Who is the parent organization of {subject_entity}?"
 
     return prompt
-
-# def create_prompt(subject_entity: str, relation: str, mask_token: str) -> str:
-#     """
-#     Depending on the relation, we fix the prompt
-#     """
-#     prompt = f"{subject_entity}, {relation}, {mask_token}."
-#     return prompt
 
 
 def run(args):
@@ -122,18 +66,15 @@ def run(args):
     model_type = args.model
     logger.info(f"Loading the model \"{model_type}\"...")
 
-    tokenizer = AutoTokenizer.from_pretrained('bert-large-cased') #model_type)
-    model = AutoModelForMaskedLM.from_pretrained(model_type)
+    tokenizer = AutoTokenizer.from_pretrained(model_type)
+    model = AutoModelForCausalLM.from_pretrained(model_type)
 
     pipe = pipeline(
-        task="fill-mask",
         model=model,
         tokenizer=tokenizer,
         top_k=args.top_k,
         device=args.gpu
     )
-
-    mask_token = tokenizer.mask_token
 
     # Load the input file
     logger.info(f"Loading the input file \"{args.input}\"...")
@@ -141,11 +82,12 @@ def run(args):
     logger.info(f"Loaded {len(input_rows):,} rows.")
 
     # Create prompts
+    # The code doesn't fit in one message, so I'm continuing in this one.
+
     logger.info(f"Creating prompts...")
     prompts = PromptSet([create_prompt(
         subject_entity=row["SubjectEntity"],
         relation=row["Relation"],
-        mask_token=mask_token,
     ) for row in input_rows])
 
     # Run the model
@@ -182,8 +124,8 @@ def main():
         "-m",
         "--model",
         type=str,
-        default="bert-large-cased",
-        help="HuggingFace model name (default: bert-large-cased)",
+        default="declare-lab/flan-alpaca-large",  # Change the default model
+        help="HuggingFace model name (default: declare-lab/flan-alpaca-large)",
     )
     parser.add_argument(
         "-i",

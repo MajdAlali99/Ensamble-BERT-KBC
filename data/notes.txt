@@ -1,0 +1,286 @@
+# trained original prombt
+# {'score': 0.2158522754907608, 'token': 8341, 'token_str': 'lebanon', 'sequence': 'syria shares border with lebanon.'}
+# {'score': 0.18444256484508514, 'token': 4238, 'token_str': 'iran', 'sequence': 'syria shares border with iran.'}
+# {'score': 0.12268328666687012, 'token': 3956, 'token_str': 'israel', 'sequence': 'syria shares border with israel.'}
+# {'score': 0.10872320085763931, 'token': 5712, 'token_str': 'iraq', 'sequence': 'syria shares border with iraq.'}
+# {'score': 0.09254060685634613, 'token': 4977, 'token_str': 'turkey', 'sequence': 'syria shares border with turkey.'}
+# {'score': 0.07763785868883133, 'token': 5207, 'token_str': 'jordan', 'sequence': 'syria shares border with jordan.'}
+# {'score': 0.0308292955160141, 'token': 5279, 'token_str': 'egypt', 'sequence': 'syria shares border with egypt.'}
+# {'score': 0.028058456256985664, 'token': 13437, 'token_str': 'tunisia', 'sequence': 'syria shares border with tunisia.'}
+# {'score': 0.024586619809269905, 'token': 10411, 'token_str': 'sudan', 'sequence': 'syria shares border with sudan.'}
+# {'score': 0.016549233347177505, 'token': 12917, 'token_str': 'libya', 'sequence': 'syria shares border with libya.'}
+
+# un-trained original prombt
+# {'score': 0.23750248551368713, 'token': 8341, 'token_str': 'lebanon', 'sequence': 'syria shares border with lebanon.'}
+# {'score': 0.1196231096982956, 'token': 5207, 'token_str': 'jordan', 'sequence': 'syria shares border with jordan.'}
+# {'score': 0.10193824768066406, 'token': 4977, 'token_str': 'turkey', 'sequence': 'syria shares border with turkey.'}
+# {'score': 0.08328896015882492, 'token': 4238, 'token_str': 'iran', 'sequence': 'syria shares border with iran.'}
+# {'score': 0.07923831045627594, 'token': 5279, 'token_str': 'egypt', 'sequence': 'syria shares border with egypt.'}
+# {'score': 0.0722748413681984, 'token': 5712, 'token_str': 'iraq', 'sequence': 'syria shares border with iraq.'}
+# {'score': 0.06539595872163773, 'token': 3956, 'token_str': 'israel', 'sequence': 'syria shares border with israel.'}
+# {'score': 0.03538859263062477, 'token': 10411, 'token_str': 'sudan', 'sequence': 'syria shares border with sudan.'}
+# {'score': 0.01247909665107727, 'token': 5483, 'token_str': 'greece', 'sequence': 'syria shares border with greece.'}
+# {'score': 0.011043316684663296, 'token': 13968, 'token_str': 'yemen', 'sequence': 'syria shares border with yemen.'}
+
+# triples prompt
+# {'score': 0.04288412630558014, 'token': 2313, 'token_str': 'population', 'sequence': 'syria, country - borders - country, population.'}
+# {'score': 0.03911660239100456, 'token': 2406, 'token_str': 'country', 'sequence': 'syria, country - borders - country, country.'}
+# {'score': 0.028627995401620865, 'token': 7795, 'token_str': 'syria', 'sequence': 'syria, country - borders - country, syria.'}
+# {'score': 0.024241860955953598, 'token': 2381, 'token_str': 'history', 'sequence': 'syria, country - borders - country, history.'}
+# {'score': 0.02215092070400715, 'token': 4949, 'token_str': 'map', 'sequence': 'syria, country - borders - country, map.'}
+# {'score': 0.02155419811606407, 'token': 8341, 'token_str': 'lebanon', 'sequence': 'syria, country - borders - country, lebanon.'}
+# {'score': 0.016238851472735405, 'token': 2555, 'token_str': 'region', 'sequence': 'syria, country - borders - country, region.'}
+# {'score': 0.013454382307827473, 'token': 6645, 'token_str': 'borders', 'sequence': 'syria, country - borders - country, borders.'}
+# {'score': 0.013307929039001465, 'token': 2171, 'token_str': 'name', 'sequence': 'syria, country - borders - country, name.'}
+# {'score': 0.012529679574072361, 'token': 5712, 'token_str': 'iraq', 'sequence': 'syria, country - borders - country, iraq.'}
+
+# bert mlm trained triples prompt (cross entropy)
+# {'score': 0.616692841053009, 'token': 8341, 'token_str': 'lebanon', 'sequence': 'syria, country - borders - country, lebanon.'}
+# {'score': 0.13639438152313232, 'token': 5207, 'token_str': 'jordan', 'sequence': 'syria, country - borders - country, jordan.'}
+# {'score': 0.13069632649421692, 'token': 4977, 'token_str': 'turkey', 'sequence': 'syria, country - borders - country, turkey.'}
+# {'score': 0.03673074394464493, 'token': 5712, 'token_str': 'iraq', 'sequence': 'syria, country - borders - country, iraq.'}
+# {'score': 0.015300646424293518, 'token': 3956, 'token_str': 'israel', 'sequence': 'syria, country - borders - country, israel.'}
+# {'score': 0.013778207823634148, 'token': 7795, 'token_str': 'syria', 'sequence': 'syria, country - borders - country, syria.'}
+# {'score': 0.005671328399330378, 'token': 13437, 'token_str': 'tunisia', 'sequence': 'syria, country - borders - country, tunisia.'}
+# {'score': 0.005660138092935085, 'token': 13968, 'token_str': 'yemen', 'sequence': 'syria, country - borders - country, yemen.'}
+# {'score': 0.004796930588781834, 'token': 16094, 'token_str': 'damascus', 'sequence': 'syria, country - borders - country, damascus.'}
+# {'score': 0.00432570930570364, 'token': 5279, 'token_str': 'egypt', 'sequence': 'syria, country - borders - country, egypt.'}
+
+# triples prompt
+# {'score': 0.03639591857790947, 'token': 2762, 'token_str': 'germany', 'sequence': 'germany, country - borders - country, germany.'}
+# {'score': 0.03433101996779442, 'token': 2381, 'token_str': 'history', 'sequence': 'germany, country - borders - country, history.'}
+# {'score': 0.024689391255378723, 'token': 1052, 'token_str': 'p', 'sequence': 'germany, country - borders - country, p.'}
+# {'score': 0.02108820155262947, 'token': 2406, 'token_str': 'country', 'sequence': 'germany, country - borders - country, country.'}
+# {'score': 0.01997896283864975, 'token': 2885, 'token_str': 'europe', 'sequence': 'germany, country - borders - country, europe.'}
+# {'score': 0.015119803138077259, 'token': 2555, 'token_str': 'region', 'sequence': 'germany, country - borders - country, region.'}
+# {'score': 0.012396415695548058, 'token': 4385, 'token_str': 'etc', 'sequence': 'germany, country - borders - country, etc.'}
+# {'score': 0.011953307315707207, 'token': 3842, 'token_str': 'nation', 'sequence': 'germany, country - borders - country, nation.'}
+# {'score': 0.01175936684012413, 'token': 3304, 'token_str': 'italy', 'sequence': 'germany, country - borders - country, italy.'}
+# {'score': 0.00904925912618637, 'token': 3226, 'token_str': 'culture', 'sequence': 'germany, country - borders - country, culture.'}
+
+# bert mlm trained triples prompt
+# {'score': 0.2666928172111511, 'token': 5118, 'token_str': 'austria', 'sequence': 'germany, country - borders - country, austria.'}
+# {'score': 0.265587717294693, 'token': 5288, 'token_str': 'switzerland', 'sequence': 'germany, country - borders - country, switzerland.'}
+# {'score': 0.045650918036699295, 'token': 2605, 'token_str': 'france', 'sequence': 'germany, country - borders - country, france.'}
+# {'score': 0.03513256832957268, 'token': 3735, 'token_str': 'poland', 'sequence': 'germany, country - borders - country, poland.'}
+# {'score': 0.033166710287332535, 'token': 4549, 'token_str': 'netherlands', 'sequence': 'germany, country - borders - country, netherlands.'}
+# {'score': 0.032198190689086914, 'token': 2762, 'token_str': 'germany', 'sequence': 'germany, country - borders - country, germany.'}
+# {'score': 0.0303726214915514, 'token': 3304, 'token_str': 'italy', 'sequence': 'germany, country - borders - country, italy.'}
+# {'score': 0.024882208555936813, 'token': 4701, 'token_str': 'sweden', 'sequence': 'germany, country - borders - country, sweden.'}
+# {'score': 0.019319217652082443, 'token': 5706, 'token_str': 'belgium', 'sequence': 'germany, country - borders - country, belgium.'}
+# {'score': 0.0165106151252985, 'token': 16426, 'token_str': 'brandenburg', 'sequence': 'germany, country - borders - country, brandenburg.'}
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/bert-large-triple.jsonl -g ./data/dev.jsonl       
+                               p      r     f1
+ChemicalCompoundElement    1.000  0.000  0.000
+CompanyParentOrganization  0.740  0.680  0.520
+CountryBordersWithCountry  0.936  0.021  0.021
+CountryOfficialLanguage    0.957  0.000  0.000
+PersonCauseOfDeath         0.900  0.500  0.460
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.920  0.300  0.280
+PersonLanguage             0.780  0.000  0.000
+PersonPlaceOfDeath         0.680  0.500  0.280
+PersonProfession           0.800  0.000  0.000
+RiverBasinsCountry         0.740  0.000  0.000
+StateSharesBorderState     0.700  0.000  0.000
+*** Average ***            0.846  0.167  0.130
+
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/large.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    0.940  0.163  0.236
+CompanyParentOrganization  0.940  0.680  0.660
+CountryBordersWithCountry  0.957  0.098  0.127
+CountryOfficialLanguage    0.894  0.654  0.701
+PersonCauseOfDeath         0.200  0.540  0.080
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.520  0.630  0.393
+PersonLanguage             0.880  0.543  0.578
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.980  0.000  0.000
+RiverBasinsCountry         0.920  0.179  0.204
+StateSharesBorderState     0.960  0.000  0.000
+*** Average ***            0.849  0.332  0.290
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/bert-large-trained.jsonl -g ./data/dev.jsonl      
+                               p      r     f1
+ChemicalCompoundElement    0.900  0.157  0.230
+CompanyParentOrganization  1.000  0.680  0.680
+CountryBordersWithCountry  1.000  0.021  0.021
+CountryOfficialLanguage    0.936  0.207  0.223
+PersonCauseOfDeath         0.520  0.560  0.260
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.460  0.637  0.363
+PersonLanguage             1.000  0.010  0.013
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.940  0.000  0.000
+RiverBasinsCountry         1.000  0.000  0.000
+StateSharesBorderState     1.000  0.000  0.000
+*** Average ***            0.896  0.231  0.191
+
+ C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/test-whole.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    1.000  0.157  0.223
+CompanyParentOrganization  1.000  0.680  0.680
+CountryBordersWithCountry  0.979  0.131  0.177
+CountryOfficialLanguage    0.872  0.665  0.715
+PersonCauseOfDeath         0.560  0.510  0.173
+PersonEmployer             0.980  0.000  0.000
+PersonInstrument           0.660  0.590  0.430
+PersonLanguage             0.920  0.087  0.090
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           1.000  0.000  0.000
+RiverBasinsCountry         0.960  0.286  0.321
+StateSharesBorderState     1.000  0.005  0.008
+*** Average ***            0.911  0.301  0.276
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/jobbert.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    0.880  0.173  0.254
+CompanyParentOrganization  1.000  0.680  0.680
+CountryBordersWithCountry  0.979  0.021  0.021
+CountryOfficialLanguage    0.340  0.223  0.252
+PersonCauseOfDeath         0.660  0.500  0.300
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           1.000  0.300  0.300
+PersonLanguage             0.780  0.504  0.548
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.980  0.000  0.000
+RiverBasinsCountry         0.960  0.000  0.000
+StateSharesBorderState     0.320  0.000  0.000
+*** Average ***            0.825  0.242  0.238
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/emilyalsentzer.jsonl -g ./data/dev.jsonl 
+                               p      r     f1
+ChemicalCompoundElement    0.980  0.000  0.000
+CompanyParentOrganization  0.980  0.680  0.660
+CountryBordersWithCountry  0.979  0.021  0.021
+CountryOfficialLanguage    1.000  0.000  0.000
+PersonCauseOfDeath         0.640  0.500  0.340
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.980  0.300  0.280
+PersonLanguage             0.780  0.528  0.563
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           1.000  0.000  0.000
+RiverBasinsCountry         0.980  0.000  0.000
+StateSharesBorderState     0.720  0.000  0.000
+*** Average ***            0.920  0.211  0.197
+
+############
+NEW PROMPTS
+###########
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/large-prt.jsonl -g ./data/dev.jsonl   
+                               p      r     f1
+ChemicalCompoundElement    0.940  0.140  0.210
+CompanyParentOrganization  0.000  0.680  0.000
+CountryBordersWithCountry  0.957  0.098  0.127
+CountryOfficialLanguage    0.894  0.643  0.693
+PersonCauseOfDeath         0.120  0.500  0.040
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.520  0.630  0.393
+PersonLanguage             0.880  0.543  0.578
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.980  0.032  0.045
+RiverBasinsCountry         0.920  0.179  0.204
+StateSharesBorderState     0.860  0.019  0.030
+*** Average ***            0.756  0.330  0.235
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/emilyalsentzer-prt.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    1.000  0.000  0.000
+CompanyParentOrganization  0.640  0.680  0.440
+CountryBordersWithCountry  0.979  0.021  0.021
+CountryOfficialLanguage    0.745  0.000  0.000
+PersonCauseOfDeath         0.000  0.500  0.000
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.980  0.300  0.280
+PersonLanguage             0.780  0.528  0.563
+PersonPlaceOfDeath         0.960  0.500  0.480
+PersonProfession           1.000  0.000  0.000
+RiverBasinsCountry         0.980  0.000  0.000
+StateSharesBorderState     1.000  0.000  0.000
+*** Average ***            0.839  0.211  0.149
+
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/jobbert-prt.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    0.880  0.255  0.380
+CompanyParentOrganization  0.880  0.680  0.580
+CountryBordersWithCountry  0.979  0.021  0.021
+CountryOfficialLanguage    0.532  0.223  0.252
+PersonCauseOfDeath         0.000  0.500  0.000
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           1.000  0.300  0.300
+PersonLanguage             0.780  0.504  0.548
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.940  0.000  0.000
+RiverBasinsCountry         0.960  0.000  0.000
+StateSharesBorderState     1.000  0.000  0.000
+*** Average ***            0.829  0.249  0.215
+
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/masking.jsonl -g ./data/dev.jsonl    
+                               p      r     f1
+ChemicalCompoundElement    0.960  0.101  0.149
+CompanyParentOrganization  0.980  0.680  0.680
+CountryBordersWithCountry  0.979  0.131  0.177
+CountryOfficialLanguage    0.851  0.528  0.559
+PersonCauseOfDeath         0.040  0.500  0.020
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           0.660  0.590  0.430
+PersonLanguage             0.920  0.087  0.090
+PersonPlaceOfDeath         0.780  0.500  0.300
+PersonProfession           0.760  0.148  0.213
+RiverBasinsCountry         0.960  0.286  0.321
+StateSharesBorderState     0.820  0.010  0.016
+*** Average ***            0.809  0.297  0.246
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/raw-large-prt.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    0.980  0.067  0.093
+CompanyParentOrganization  0.000  0.680  0.000
+CountryBordersWithCountry  1.000  0.087  0.122
+CountryOfficialLanguage    0.936  0.588  0.618
+PersonCauseOfDeath         0.260  0.500  0.100
+PersonEmployer             1.000  0.000  0.000
+PersonInstrument           1.000  0.340  0.340
+PersonLanguage             0.900  0.412  0.431
+PersonPlaceOfDeath         0.480  0.500  0.200
+PersonProfession           1.000  0.000  0.000
+RiverBasinsCountry         0.960  0.342  0.381
+StateSharesBorderState     0.920  0.017  0.029
+*** Average ***            0.786  0.294  0.193
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/multi-masking.jsonl -g ./data/dev.jsonl
+                               p      r     f1
+ChemicalCompoundElement    1.000  0.013  0.020
+CompanyParentOrganization  0.860  0.680  0.580
+CountryBordersWithCountry  0.979  0.097  0.113
+CountryOfficialLanguage    0.957  0.496  0.524
+PersonCauseOfDeath         1.000  0.500  0.500
+PersonEmployer             0.740  0.000  0.000
+PersonInstrument           0.980  0.300  0.300
+PersonLanguage             0.940  0.064  0.067
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.680  0.139  0.200
+RiverBasinsCountry         0.940  0.211  0.240
+StateSharesBorderState     0.980  0.000  0.000
+*** Average ***            0.921  0.250  0.254
+
+PS C:\Users\majd_\Desktop\Thesis\Ensamble-BERT-KBC> python evaluate.py -p ./data/epoch30.jsonl -g ./data/dev.jsonl      
+                               p      r     f1
+ChemicalCompoundElement    0.940  0.186  0.270
+CompanyParentOrganization  0.000  0.680  0.000
+CountryBordersWithCountry  0.894  0.111  0.129
+CountryOfficialLanguage    0.809  0.516  0.566
+PersonCauseOfDeath         0.500  0.500  0.260
+PersonEmployer             0.940  0.010  0.013
+PersonInstrument           0.540  0.637  0.383
+PersonLanguage             0.840  0.583  0.618
+PersonPlaceOfDeath         1.000  0.500  0.500
+PersonProfession           0.880  0.099  0.140
+RiverBasinsCountry         0.920  0.109  0.127
+StateSharesBorderState     0.900  0.029  0.047
+*** Average ***            0.764  0.330  0.254

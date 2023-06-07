@@ -7,6 +7,60 @@ from transformers import BertForMaskedLM, BertTokenizerFast, LineByLineTextDatas
 from transformers import Trainer, TrainingArguments
 import argparse
 
+from transformers import BertForMaskedLM
+import torch.nn.functional as F
+import torch
+
+class CustomBertForMaskedLM(BertForMaskedLM):
+    def forward(self, input_ids, attention_mask=None, token_type_ids=None, position_ids=None, head_mask=None, inputs_embeds=None, labels=None, encoder_hidden_states=None, encoder_attention_mask=None, past_key_values=None, use_cache=None, output_attentions=None, output_hidden_states=None, return_dict=None):
+        return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+
+        outputs = self.bert(
+            input_ids,
+            attention_mask=attention_mask,
+            token_type_ids=token_type_ids,
+            position_ids=position_ids,
+            head_mask=head_mask,
+            inputs_embeds=inputs_embeds,
+            encoder_hidden_states=encoder_hidden_states,
+            encoder_attention_mask=encoder_attention_mask,
+            past_key_values=past_key_values,
+            use_cache=use_cache,
+            output_attentions=output_attentions,
+            output_hidden_states=output_hidden_states,
+            return_dict=return_dict,
+        )
+
+        sequence_outputs = outputs[0]
+        prediction_scores = self.cls(sequence_outputs)
+
+        if labels is not None:
+            # Get a mask of the positions where labels are not -100 (ignoring padding)
+            masked_positions = (labels != -100)
+
+            # Get the prediction scores at the masked positions
+            prediction_scores_masked = prediction_scores[masked_positions]
+
+            # Convert logits to probabilities
+            probs = F.softmax(prediction_scores_masked, dim=-1)
+
+            # Get the labels at the masked positions
+            labels_masked = labels[masked_positions]
+
+            # Convert labels to one-hot vectors
+            one_hot_labels = F.one_hot(labels_masked, num_classes=self.config.vocab_size).float().to(labels_masked.device)
+
+            # Compute KL divergence
+            kl_div_loss = F.kl_div(probs.log(), one_hot_labels, reduction='batchmean')
+
+            # Return the loss as the first element of outputs
+            return ((kl_div_loss,) + outputs[2:]) if return_dict else (kl_div_loss,) + outputs[1:]
+
+        else:
+            # If no labels, just return the prediction scores
+            return ((prediction_scores,) + outputs[2:]) if return_dict else (prediction_scores,) + outputs[1:]
+
+
 def read_lm_kbc_jsonl(file_path: Union[str, Path]) -> List[Dict]:
     rows = []
     with open(file_path, "r") as f:
@@ -23,7 +77,7 @@ def read_lm_kbc_jsonl_to_df(file_path: Union[str, Path]) -> pd.DataFrame:
 def main(args):
     logging.set_verbosity_error()  # avoid irritating transformers warnings
 
-    model = BertForMaskedLM.from_pretrained(args.model_name)
+    model = CustomBertForMaskedLM.from_pretrained(args.model_name)
     tokenizer = BertTokenizerFast.from_pretrained(args.model_name)
 
     train_df = read_lm_kbc_jsonl_to_df(args.input_file_path)
@@ -31,11 +85,11 @@ def main(args):
 
     train_df["text"] = train_df["SubjectEntity"] + ", " + \
                     train_df["Relation"] + ", " + \
-                    train_df["ObjectEntities"].apply(lambda x: ', '.join([str(i) if len(i)>0 else "" for i in x]))
+                    train_df["ObjectEntities"].apply(lambda x: ', '.join([i[0] if len(i)>0 else "" for i in x]))
 
     test_df["text"] = test_df["SubjectEntity"] + ", " + \
                     test_df["Relation"] + ", " + \
-                    test_df["ObjectEntities"].apply(lambda x: ', '.join([str(i) if len(i)>0 else "" for i in x]))
+                    test_df["ObjectEntities"].apply(lambda x: ', '.join([i[0] if len(i)>0 else "" for i in x]))
 
     train_df["text"].to_csv(args.train_txt_file_path, header=False, index=False)
     test_df["text"].to_csv(args.test_txt_file_path, header=False, index=False)

@@ -7,6 +7,10 @@ from transformers import BertForMaskedLM, BertTokenizerFast, LineByLineTextDatas
 from transformers import Trainer, TrainingArguments
 import argparse
 
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # use the first GPU
+
 def read_lm_kbc_jsonl(file_path: Union[str, Path]) -> List[Dict]:
     rows = []
     with open(file_path, "r") as f:
@@ -15,9 +19,18 @@ def read_lm_kbc_jsonl(file_path: Union[str, Path]) -> List[Dict]:
             rows.append(row)
     return rows
 
-def read_lm_kbc_jsonl_to_df(file_path: Union[str, Path]) -> pd.DataFrame:
+def mask_object_entities(text: str, object_entities: List[str], tokenizer: BertTokenizerFast) -> str:
+    for entity in object_entities:
+        text = text.replace(entity, tokenizer.mask_token)
+    return text
+
+def read_lm_kbc_jsonl_to_df(file_path: Union[str, Path], tokenizer: BertTokenizerFast) -> pd.DataFrame:
     rows = read_lm_kbc_jsonl(file_path)
     df = pd.DataFrame(rows)
+    df["text"] = df["SubjectEntity"] + ", " + \
+                 df["Relation"] + ", " + \
+                 df["ObjectEntities"].apply(lambda x: ', '.join([str(i) if len(i)>0 else "" for i in x]))
+    df["text"] = df.apply(lambda row: mask_object_entities(row["text"], row["ObjectEntities"], tokenizer), axis=1)
     return df
 
 def main(args):
@@ -26,16 +39,8 @@ def main(args):
     model = BertForMaskedLM.from_pretrained(args.model_name)
     tokenizer = BertTokenizerFast.from_pretrained(args.model_name)
 
-    train_df = read_lm_kbc_jsonl_to_df(args.input_file_path)
-    test_df = read_lm_kbc_jsonl_to_df(args.dev_file_path)
-
-    train_df["text"] = train_df["SubjectEntity"] + ", " + \
-                    train_df["Relation"] + ", " + \
-                    train_df["ObjectEntities"].apply(lambda x: ', '.join([str(i) if len(i)>0 else "" for i in x]))
-
-    test_df["text"] = test_df["SubjectEntity"] + ", " + \
-                    test_df["Relation"] + ", " + \
-                    test_df["ObjectEntities"].apply(lambda x: ', '.join([str(i) if len(i)>0 else "" for i in x]))
+    train_df = read_lm_kbc_jsonl_to_df(args.input_file_path, tokenizer)
+    test_df = read_lm_kbc_jsonl_to_df(args.dev_file_path, tokenizer)
 
     train_df["text"].to_csv(args.train_txt_file_path, header=False, index=False)
     test_df["text"].to_csv(args.test_txt_file_path, header=False, index=False)
@@ -43,7 +48,7 @@ def main(args):
     train_dataset = LineByLineTextDataset(tokenizer=tokenizer, file_path=args.train_txt_file_path, block_size=128)
     test_dataset = LineByLineTextDataset(tokenizer=tokenizer, file_path=args.test_txt_file_path, block_size=128)
 
-    data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=True, mlm_probability=0.15)
+    data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     print("USED DEVICE ====> ", device, torch.cuda.is_available())
@@ -51,8 +56,8 @@ def main(args):
     training_args = TrainingArguments(
         output_dir=args.output_path,
         overwrite_output_dir=True,
-        num_train_epochs=5,
-        per_device_train_batch_size=8,
+        num_train_epochs=10,
+        per_device_train_batch_size=32,
         save_steps=10_000,
         save_total_limit=2,
         prediction_loss_only=True,

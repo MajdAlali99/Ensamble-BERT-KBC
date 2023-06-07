@@ -151,6 +151,9 @@ def rows_to_dict(rows: List[Dict]) -> Dict:
 
 def evaluate_per_sr_pair(predictions_fp, ground_truth_fp) \
         -> List[Dict[str, float]]:
+    # pred_rows = read_lm_kbc_jsonl(predictions_fp, preprocess=True)
+    # gt_rows = read_lm_kbc_jsonl(ground_truth_fp)
+
     pred_rows = read_lm_kbc_jsonl(predictions_fp)
     gt_rows = read_lm_kbc_jsonl(ground_truth_fp)
 

@@ -28,101 +28,16 @@ class PromptSet(Dataset):
         return self.prompts[index]
 
 
-# def create_prompt(subject_entity: str, relation: str, mask_token: str) -> str:
-#     """
-#     Depending on the relation, we fix the prompt
-#     """
-
-#     prompt = mask_token
-
-#     if relation == "CountryBordersWithCountry":
-#         prompt = f"{subject_entity} shares border with {mask_token}."
-#     elif relation == "CountryOfficialLanguage":
-#         prompt = f"The official language of {subject_entity} is {mask_token}."
-#     elif relation == "StateSharesBorderState":
-#         prompt = f"{subject_entity} shares border with {mask_token} state."
-#     elif relation == "RiverBasinsCountry":
-#         prompt = f"{subject_entity} river basins in {mask_token}."
-#     elif relation == "ChemicalCompoundElement":
-#         prompt = f"{subject_entity} consists of {mask_token}, " \
-#                  f"which is an element."
-#     elif relation == "PersonLanguage":
-#         prompt = f"{subject_entity} speaks in {mask_token}."
-#     elif relation == "PersonProfession":
-#         prompt = f"{subject_entity} is a {mask_token} by profession."
-#     elif relation == "PersonInstrument":
-#         prompt = f"{subject_entity} plays {mask_token}, which is an instrument."
-#     elif relation == "PersonEmployer":
-#         prompt = f"{subject_entity} is an employer at {mask_token}, " \
-#                  f"which is a company."
-#     elif relation == "PersonPlaceOfDeath":
-#         prompt = f"{subject_entity} died at {mask_token}."
-#     elif relation == "PersonCauseOfDeath":
-#         prompt = f"{subject_entity} died due to {mask_token}."
-#     elif relation == "CompanyParentOrganization":
-#         prompt = f"The parent organization of {subject_entity} is {mask_token}."
-
-#     return prompt
-
 def create_prompt(subject_entity: str, relation: str, mask_token: str) -> str:
-    """
-    Depending on the relation, we fix the prompt
-    """
-
-    prompt = mask_token
-
-    if relation == "CountryBordersWithCountry":
-        prompt = f"{subject_entity} shares border with {mask_token}."
-
-    elif relation == "CountryOfficialLanguage":
-        prompt = f"{mask_token} is the native language of {subject_entity}."
-
-    elif relation == "StateSharesBorderState":
-        prompt = f"{subject_entity} and {mask_token} are bordering states."
-
-    elif relation == "RiverBasinsCountry":
-        prompt = f"{subject_entity} river basins in {mask_token}."
-
-    elif relation == "ChemicalCompoundElement":
-        prompt = f"{subject_entity} contains atoms of {mask_token}."
-
-    elif relation == "PersonLanguage":
-        prompt = f"{subject_entity} speaks in {mask_token}."
-
-    elif relation == "PersonProfession":
-        prompt = f"{subject_entity} works as an {mask_token}."
-
-    elif relation == "PersonInstrument":
-        prompt = f"{subject_entity} plays {mask_token}, which is an instrument."
-
-    elif relation == "PersonEmployer":
-        prompt = f"{subject_entity} is an employee at {mask_token}."
-
-    elif relation == "PersonPlaceOfDeath":
-        prompt = f"{subject_entity} death place {mask_token}."
-
-    elif relation == "PersonCauseOfDeath":
-        prompt = f"{mask_token} led to the death of {subject_entity}."
-        
-    elif relation == "CompanyParentOrganization":
-        prompt = f"{mask_token} is parent organization of {subject_entity}."
-
+    prompt = f"{subject_entity}, {relation}, {mask_token}."
     return prompt
-
-# def create_prompt(subject_entity: str, relation: str, mask_token: str) -> str:
-#     """
-#     Depending on the relation, we fix the prompt
-#     """
-#     prompt = f"{subject_entity}, {relation}, {mask_token}."
-#     return prompt
-
 
 def run(args):
     # Load the model
     model_type = args.model
     logger.info(f"Loading the model \"{model_type}\"...")
 
-    tokenizer = AutoTokenizer.from_pretrained('bert-large-cased') #model_type)
+    tokenizer = AutoTokenizer.from_pretrained('bert-large-cased')
     model = AutoModelForMaskedLM.from_pretrained(model_type)
 
     pipe = pipeline(
@@ -155,6 +70,7 @@ def run(args):
         outputs.append(out)
     results = []
     for row, prompt, output in zip(input_rows, prompts, outputs):
+        # print(prompt)
         result = {
             "SubjectEntity": row["SubjectEntity"],
             "Relation": row["Relation"],

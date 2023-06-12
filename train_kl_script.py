@@ -35,24 +35,13 @@ class CustomBertForMaskedLM(BertForMaskedLM):
         prediction_scores = self.cls(sequence_outputs)
 
         if labels is not None:
-            # Get a mask of the positions where labels are not -100 (ignoring padding)
             masked_positions = (labels != -100)
-
-            # Get the prediction scores at the masked positions
             prediction_scores_masked = prediction_scores[masked_positions]
-
-            # Convert logits to probabilities
             probs = F.softmax(prediction_scores_masked, dim=-1)
-
-            # Get the labels at the masked positions
             labels_masked = labels[masked_positions]
-
-            # Convert labels to one-hot vectors
             one_hot_labels = F.one_hot(labels_masked, num_classes=self.config.vocab_size).float().to(labels_masked.device)
-
             # Compute KL divergence
             kl_div_loss = F.kl_div(probs.log(), one_hot_labels, reduction='batchmean')
-
             # Return the loss as the first element of outputs
             return ((kl_div_loss,) + outputs[2:]) if return_dict else (kl_div_loss,) + outputs[1:]
 

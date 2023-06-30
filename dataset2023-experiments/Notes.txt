@@ -1,0 +1,74 @@
+ 
+ ########### bert-base data:train_tiny.py ###################
+                                              p      r     f1
+band-has-member                           0.997  0.000  0.000
+book-has-genre                            0.854  0.042  0.050
+company-parent-org                        0.951  0.000  0.000
+compound-has-parts                        0.994  0.015  0.022
+country-borders-country                   1.000  0.000  0.000
+country-has-states                        1.000  0.000  0.000
+country-official-language                 0.872  0.610  0.652
+drug-treats-condition                     0.991  0.000  0.000
+footballer-play-position                  1.000  0.000  0.000
+literarywork-has-translation-in-language  0.683  0.277  0.332
+person-cause-of-death                     0.994  0.000  0.000
+person-has-autobiography                  1.000  0.000  0.000
+person-has-employer                       1.000  0.000  0.000
+person-has-noble-prize                    0.963  0.000  0.000
+person-has-profession                     0.997  0.000  0.000
+person-has-spouse                         1.000  0.000  0.000
+person-place-of-death                     1.000  0.000  0.000
+person-plays-instrument                   0.997  0.000  0.000
+person-speaks-language                    0.994  0.013  0.017
+river-basins-country                      0.957  0.031  0.043
+state-shares-borders                      0.860  0.000  0.000
+*** Average ***                           0.957  0.047  0.053
+
+########### bert-base data:train.py ###################                                              p      r     f1
+band-has-member                           0.997  0.000  0.000
+book-has-genre                            0.854  0.042  0.050
+company-parent-org                        0.951  0.000  0.000
+compound-has-parts                        0.994  0.015  0.022
+country-borders-country                   1.000  0.000  0.000
+country-has-states                        1.000  0.000  0.000
+country-official-language                 0.872  0.610  0.652
+drug-treats-condition                     0.991  0.000  0.000
+footballer-play-position                  1.000  0.000  0.000
+literarywork-has-translation-in-language  0.683  0.277  0.332
+person-cause-of-death                     0.994  0.000  0.000
+person-has-autobiography                  1.000  0.000  0.000
+person-has-employer                       1.000  0.000  0.000
+person-has-noble-prize                    0.963  0.000  0.000
+person-has-profession                     0.997  0.000  0.000
+person-has-spouse                         1.000  0.000  0.000
+person-place-of-death                     1.000  0.000  0.000
+person-plays-instrument                   0.997  0.000  0.000
+person-speaks-language                    0.994  0.013  0.017
+river-basins-country                      0.957  0.031  0.043
+state-shares-borders                      0.860  0.000  0.000
+*** Average ***                           0.957  0.047  0.053
+
+########### bert-large data:train.py ################### 
+                                             p      r     f1
+band-has-member                           0.989  0.000  0.000
+book-has-genre                            0.823  0.049  0.058
+company-parent-org                        0.974  0.000  0.000
+compound-has-parts                        0.994  0.045  0.065
+country-borders-country                   0.923  0.060  0.083
+country-has-states                        0.837  0.000  0.000
+country-official-language                 0.979  0.777  0.833
+drug-treats-condition                     0.974  0.000  0.000
+footballer-play-position                  1.000  0.000  0.000
+literarywork-has-translation-in-language  1.000  0.003  0.003
+person-cause-of-death                     0.900  0.003  0.003
+person-has-autobiography                  0.882  0.000  0.000
+person-has-employer                       0.997  0.003  0.003
+person-has-noble-prize                    0.711  0.000  0.000
+person-has-profession                     0.983  0.000  0.000
+person-has-spouse                         0.994  0.000  0.000
+person-place-of-death                     0.954  0.014  0.014
+person-plays-instrument                   1.000  0.000  0.000
+person-speaks-language                    0.789  0.125  0.139
+river-basins-country                      0.960  0.037  0.051
+state-shares-borders                      0.889  0.001  0.001
+*** Average ***                           0.931  0.053  0.060
